@@ -36,6 +36,33 @@ function addNotification(message) {
   list.prepend(entry);
 }
 
+function setupTopbarBehavior() {
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) {
+    return;
+  }
+
+  let idleTimer;
+
+  function setIdleIfStopped() {
+    if (window.scrollY <= 20) {
+      topbar.classList.remove('is-idle');
+      return;
+    }
+    topbar.classList.add('is-idle');
+  }
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      topbar.classList.remove('is-idle');
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(setIdleIfStopped, 700);
+    },
+    { passive: true }
+  );
+}
+
 function setupEstimateForm() {
   const floorsInput = document.getElementById('floors');
   const windowsInput = document.getElementById('windows');
@@ -434,6 +461,7 @@ function setupScheduleSystem() {
   });
 }
 
+setupTopbarBehavior();
 setupEstimateForm();
 setupPaymentSystem();
 setupChatSystem();
