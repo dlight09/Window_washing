@@ -1156,15 +1156,11 @@ small {
 
   .floating-chat {
     right: 0.75rem;
-    left: 0.75rem;
-    justify-items: stretch;
-  }
-
-  .chat-fab {
-    justify-content: center;
+    left: auto;
+    justify-items: end;
   }
 
   .chat-widget {
-    width: 100%;
+    width: min(360px, calc(100vw - 1.6rem));
   }
 }
