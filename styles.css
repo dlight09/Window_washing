@@ -647,6 +647,14 @@ small {
   color: var(--muted);
 }
 
+.payment-steps {
+  margin: 0.8rem 0 1rem;
+  padding-left: 1rem;
+  color: #3a4f66;
+  display: grid;
+  gap: 0.45rem;
+}
+
 .invoice-list {
   list-style: none;
   margin: 1rem 0;

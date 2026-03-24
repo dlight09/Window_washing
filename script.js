@@ -269,15 +269,31 @@ function setupPaymentSystem() {
   const paymentForm = document.getElementById('payment-form');
   const payBtn = document.getElementById('pay-btn');
   const paymentMessage = document.getElementById('payment-message');
+  const invoiceRefInput = document.getElementById('invoice-ref');
+  const paymentAmountInput = document.getElementById('payment-amount-input');
   const cardNumberInput = document.getElementById('card-number');
   const cardExpiryInput = document.getElementById('card-expiry');
   const cardCvcInput = document.getElementById('card-cvc');
 
-  if (!invoiceItems.length || !amount || !context || !paymentForm || !payBtn || !paymentMessage) {
+  if (!amount || !context || !paymentForm || !payBtn || !paymentMessage) {
     return;
   }
 
-  let selectedInvoice = invoiceItems[0];
+  const hasInvoiceSelection = invoiceItems.length > 0;
+
+  let selectedInvoice = hasInvoiceSelection ? invoiceItems[0] : null;
+
+  function syncAmountPreview() {
+    if (!paymentAmountInput) {
+      return;
+    }
+    const parsed = Number(paymentAmountInput.value);
+    amount.textContent = parsed > 0 ? `$${Math.round(parsed)}` : '$0';
+  }
+
+  if (paymentAmountInput) {
+    paymentAmountInput.addEventListener('input', syncAmountPreview);
+  }
 
   if (cardNumberInput) {
     cardNumberInput.addEventListener('input', () => {
@@ -309,14 +325,28 @@ function setupPaymentSystem() {
     selectedInvoice = item;
     amount.textContent = `$${item.dataset.amount}`;
     context.textContent = `Paying invoice for ${item.dataset.client}`;
+    if (paymentAmountInput) {
+      paymentAmountInput.value = item.dataset.amount;
+    }
   }
 
-  invoiceItems.forEach((item) => {
-    item.addEventListener('click', () => updateSelectedInvoice(item));
-  });
+  if (hasInvoiceSelection) {
+    invoiceItems.forEach((item) => {
+      item.addEventListener('click', () => updateSelectedInvoice(item));
+    });
+    updateSelectedInvoice(selectedInvoice);
+  }
 
   function clearPaymentErrors() {
-    ['card-name', 'card-number', 'card-expiry', 'card-cvc', 'billing-email'].forEach((field) => {
+    [
+      'invoice-ref',
+      'payment-amount-input',
+      'card-name',
+      'card-number',
+      'card-expiry',
+      'card-cvc',
+      'billing-email'
+    ].forEach((field) => {
       setFieldError(field, '');
     });
   }
@@ -329,6 +359,19 @@ function setupPaymentSystem() {
     const cardExpiry = document.getElementById('card-expiry').value.trim();
     const cardCvc = document.getElementById('card-cvc').value.trim();
     const billingEmail = document.getElementById('billing-email').value.trim();
+    const invoiceRef = invoiceRefInput ? invoiceRefInput.value.trim() : '';
+    const paymentValue = paymentAmountInput ? Number(paymentAmountInput.value) : 0;
+
+    if (!hasInvoiceSelection) {
+      if (!invoiceRef || invoiceRef.length < 6) {
+        setFieldError('invoice-ref', 'Enter a valid invoice number.');
+        valid = false;
+      }
+      if (!(paymentValue > 0)) {
+        setFieldError('payment-amount-input', 'Enter the amount shown on your invoice.');
+        valid = false;
+      }
+    }
 
     if (cardName.length < 2) {
       setFieldError('card-name', 'Cardholder name is required.');
@@ -369,24 +412,33 @@ function setupPaymentSystem() {
     setTimeout(() => {
       payBtn.disabled = false;
       payBtn.textContent = 'Pay now';
-      paymentMessage.textContent = `Payment confirmed for ${selectedInvoice.dataset.client}. Receipt sent by email.`;
-      addNotification(`<strong>Payment posted:</strong> ${selectedInvoice.dataset.client} paid $${selectedInvoice.dataset.amount}.`);
-      selectedInvoice.remove();
-      const completedList = document.getElementById('completed-jobs');
-      if (completedList) {
-        const completeItem = document.createElement('li');
-        completeItem.textContent = selectedInvoice.dataset.client;
-        completedList.prepend(completeItem);
-      }
+      if (selectedInvoice) {
+        paymentMessage.textContent = `Payment confirmed for ${selectedInvoice.dataset.client}. Receipt sent by email.`;
+        addNotification(`<strong>Payment posted:</strong> ${selectedInvoice.dataset.client} paid $${selectedInvoice.dataset.amount}.`);
+        selectedInvoice.remove();
+        const completedList = document.getElementById('completed-jobs');
+        if (completedList) {
+          const completeItem = document.createElement('li');
+          completeItem.textContent = selectedInvoice.dataset.client;
+          completedList.prepend(completeItem);
+        }
 
-      const remaining = document.querySelector('.invoice-item');
-      if (remaining) {
-        updateSelectedInvoice(remaining);
+        const remaining = document.querySelector('.invoice-item');
+        if (remaining) {
+          updateSelectedInvoice(remaining);
+        } else {
+          amount.textContent = '$0';
+          context.textContent = 'No pending invoices';
+          selectedInvoice = null;
+        }
       } else {
+        const paidAmount = paymentAmountInput ? Number(paymentAmountInput.value || 0) : 0;
+        paymentMessage.textContent = 'Payment confirmed. Receipt sent by email.';
+        addNotification(`<strong>Payment posted:</strong> Client invoice settled for $${Math.round(paidAmount)}.`);
         amount.textContent = '$0';
-        context.textContent = 'No pending invoices';
       }
       paymentForm.reset();
+      syncAmountPreview();
     }, 1200);
   });
 }

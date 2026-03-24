@@ -297,29 +297,15 @@
 
         <div class="payment-grid">
           <article class="payment-panel reveal">
-            <h3>Outstanding invoices</h3>
-            <ul class="invoice-list" id="invoice-list">
-              <li class="invoice-item active" data-amount="184" data-client="Mercer Dental" data-job="Storefront cadence plan">
-                <div>
-                  <strong>Mercer Dental</strong>
-                  <p>Storefront cadence plan</p>
-                </div>
-                <span>$184</span>
-              </li>
-              <li class="invoice-item" data-amount="312" data-client="Westfield Lofts" data-job="Residential deep clean">
-                <div>
-                  <strong>Westfield Lofts</strong>
-                  <p>Residential deep clean</p>
-                </div>
-                <span>$312</span>
-              </li>
-              <li class="invoice-item" data-amount="268" data-client="Fulton Bakehouse" data-job="Track reset + polish">
-                <div>
-                  <strong>Fulton Bakehouse</strong>
-                  <p>Track reset + polish</p>
-                </div>
-                <span>$268</span>
-              </li>
+            <h3>Pay your invoice</h3>
+            <p class="payment-copy">
+              Use the invoice number from your email confirmation. If you need a copy, chat
+              with us and we can resend it in under a minute.
+            </p>
+            <ul class="payment-steps">
+              <li>Enter invoice reference and billing email</li>
+              <li>Confirm amount from your invoice</li>
+              <li>Submit secure card payment and receive receipt</li>
             </ul>
 
             <div class="secure-strip">
@@ -330,7 +316,14 @@
 
           <form class="payment-form reveal" id="payment-form" novalidate>
             <h3>Checkout</h3>
-            <p class="payment-copy" id="checkout-context">Paying invoice for Mercer Dental</p>
+            <p class="payment-copy" id="checkout-context">Secure payment for your Northglass invoice.</p>
+
+            <label>
+              Invoice number
+              <input id="invoice-ref" name="invoiceRef" type="text" placeholder="INV-2026-1042" required />
+              <span class="error" id="invoice-ref-error"></span>
+            </label>
+
             <label>
               Cardholder name
               <input id="card-name" name="cardName" type="text" autocomplete="cc-name" required />
@@ -361,9 +354,15 @@
               <span class="error" id="billing-email-error"></span>
             </label>
 
+            <label>
+              Amount from invoice (USD)
+              <input id="payment-amount-input" name="paymentAmount" type="number" min="1" step="1" placeholder="184" required />
+              <span class="error" id="payment-amount-input-error"></span>
+            </label>
+
             <div class="payment-total">
               <span>Amount due</span>
-              <strong id="payment-amount">$184</strong>
+              <strong id="payment-amount">$0</strong>
             </div>
 
             <button class="btn" id="pay-btn" type="submit">Pay now</button>
