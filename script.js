@@ -38,26 +38,53 @@ function addNotification(message) {
 
 function setupTopbarBehavior() {
   const topbar = document.querySelector('.topbar');
+  const cue = document.getElementById('menu-cue');
   if (!topbar) {
     return;
   }
 
   let idleTimer;
 
+  function revealTopbar() {
+    topbar.classList.remove('is-idle');
+    if (cue) {
+      cue.classList.remove('is-visible');
+    }
+  }
+
   function setIdleIfStopped() {
     if (window.scrollY <= 20) {
-      topbar.classList.remove('is-idle');
+      revealTopbar();
       return;
     }
     topbar.classList.add('is-idle');
+    if (cue) {
+      cue.classList.add('is-visible');
+    }
+  }
+
+  function scheduleIdleCheck() {
+    window.clearTimeout(idleTimer);
+    idleTimer = window.setTimeout(setIdleIfStopped, 700);
   }
 
   window.addEventListener(
     'scroll',
     () => {
-      topbar.classList.remove('is-idle');
-      window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(setIdleIfStopped, 700);
+      revealTopbar();
+      scheduleIdleCheck();
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    'mousemove',
+    () => {
+      if (window.scrollY <= 20) {
+        return;
+      }
+      revealTopbar();
+      scheduleIdleCheck();
     },
     { passive: true }
   );
