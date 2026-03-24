@@ -679,10 +679,10 @@ small {
 }
 
 .floating-chat {
-  position: fixed;
-  right: 1.2rem;
-  bottom: 1.2rem;
-  z-index: 90;
+  position: relative;
+  width: min(1400px, calc(100% - 3rem));
+  margin: 0 auto 1rem;
+  z-index: 3;
   display: grid;
   justify-items: end;
   gap: 0.7rem;
@@ -740,6 +740,9 @@ small {
 }
 
 .chat-widget {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.7rem);
   width: min(380px, calc(100vw - 1.6rem));
   background: #fff;
   border: 1px solid #d5deeb;
@@ -1155,8 +1158,8 @@ small {
   }
 
   .floating-chat {
-    right: 0.75rem;
-    left: auto;
+    width: calc(100% - 1.5rem);
+    margin-bottom: 0.75rem;
     justify-items: end;
   }
 
