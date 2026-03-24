@@ -30,7 +30,7 @@
         <a href="#services">Services</a>
         <a href="#estimate">Booking</a>
         <a href="#payment">Payments</a>
-        <a href="#chat">Support Chat</a>
+        <a href="#" id="open-chat-link">Support Chat</a>
       </nav>
       <a class="btn btn-small" href="owner.html">Owner Portal</a>
     </header>
@@ -351,39 +351,35 @@
         </div>
       </section>
 
-      <section id="chat" class="section chat-system">
-        <div class="section-head reveal">
-          <p class="eyebrow">Automated customer chat</p>
-          <h2>Give instant service answers while routing real leads to your crew.</h2>
-        </div>
-
-        <div class="chat-layout reveal">
-          <article class="chat-window" aria-label="Customer chat assistant">
-            <header>
-              <p class="mini-label">Northglass Assistant</p>
-              <span class="chat-live">Live</span>
-            </header>
-            <div class="chat-log" id="chat-log" aria-live="polite"></div>
-            <div class="chat-quick" id="chat-quick" role="group" aria-label="Suggested prompts"></div>
-            <form id="chat-form" class="chat-form">
-              <label class="sr-only" for="chat-input">Ask about window cleaning service</label>
-              <input id="chat-input" type="text" placeholder="Ask about pricing, availability, or service areas" autocomplete="off" />
-              <button class="btn" type="submit">Send</button>
-            </form>
-          </article>
-
-          <article class="chat-notes">
-            <h3>What this bot handles</h3>
-            <ul>
-              <li>Service coverage, booking windows, and cleaning method questions</li>
-              <li>Suggested plan selection based on property type and urgency</li>
-              <li>Escalation path to dispatch when customers request a callback</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
     </main>
+
+    <div id="chat" class="floating-chat" aria-live="polite">
+      <button id="chat-fab" class="chat-fab" type="button" aria-expanded="false" aria-controls="chat-widget">
+        <span class="chat-fab-dot" aria-hidden="true"></span>
+        Chat with Northglass
+      </button>
+
+      <p id="chat-nudge" class="chat-nudge" role="status">Need a quick quote answer? Our chat is live.</p>
+
+      <section id="chat-widget" class="chat-widget" aria-label="Customer chat assistant" aria-hidden="true">
+        <header class="chat-widget-head">
+          <div>
+            <p class="mini-label">Northglass Assistant</p>
+            <span class="chat-live">Live support bot</span>
+          </div>
+          <button id="chat-close" class="chat-close" type="button" aria-label="Close chat">Close</button>
+        </header>
+
+        <div class="chat-log" id="chat-log" aria-live="polite"></div>
+        <div class="chat-quick" id="chat-quick" role="group" aria-label="Suggested prompts"></div>
+
+        <form id="chat-form" class="chat-form">
+          <label class="sr-only" for="chat-input">Ask about window cleaning service</label>
+          <input id="chat-input" type="text" placeholder="Ask about pricing, availability, or service areas" autocomplete="off" />
+          <button class="btn" type="submit">Send</button>
+        </form>
+      </section>
+    </div>
 
     <footer class="footer">
       <p>Northglass Window Care</p>

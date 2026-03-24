@@ -337,14 +337,74 @@ function setupPaymentSystem() {
 }
 
 function setupChatSystem() {
+  const floatingChat = document.querySelector('.floating-chat');
+  const chatFab = document.getElementById('chat-fab');
+  const chatClose = document.getElementById('chat-close');
+  const chatWidget = document.getElementById('chat-widget');
+  const chatNudge = document.getElementById('chat-nudge');
+  const openChatLink = document.getElementById('open-chat-link');
   const chatLog = document.getElementById('chat-log');
   const chatQuick = document.getElementById('chat-quick');
   const chatForm = document.getElementById('chat-form');
   const chatInput = document.getElementById('chat-input');
 
-  if (!chatLog || !chatQuick || !chatForm || !chatInput) {
+  if (
+    !floatingChat ||
+    !chatFab ||
+    !chatClose ||
+    !chatWidget ||
+    !chatNudge ||
+    !chatLog ||
+    !chatQuick ||
+    !chatForm ||
+    !chatInput
+  ) {
     return;
   }
+
+  let hasOpened = false;
+
+  function setOpenState(isOpen) {
+    floatingChat.classList.toggle('is-open', isOpen);
+    chatFab.setAttribute('aria-expanded', String(isOpen));
+    chatWidget.setAttribute('aria-hidden', String(!isOpen));
+    if (isOpen) {
+      chatNudge.classList.remove('is-visible');
+      chatInput.focus();
+      hasOpened = true;
+    }
+  }
+
+  chatFab.addEventListener('click', () => {
+    const currentlyOpen = floatingChat.classList.contains('is-open');
+    setOpenState(!currentlyOpen);
+  });
+
+  chatClose.addEventListener('click', () => {
+    setOpenState(false);
+  });
+
+  if (openChatLink) {
+    openChatLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      setOpenState(true);
+    });
+  }
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setOpenState(false);
+    }
+  });
+
+  setTimeout(() => {
+    if (!hasOpened) {
+      chatNudge.classList.add('is-visible');
+      setTimeout(() => {
+        chatNudge.classList.remove('is-visible');
+      }, 5200);
+    }
+  }, 2200);
 
   const suggestions = [
     'What areas do you serve?',
