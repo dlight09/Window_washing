@@ -30,9 +30,9 @@
         <a href="#services">Services</a>
         <a href="#estimate">Booking</a>
         <a href="#payment">Payments</a>
-        <a href="#ops">Operations</a>
+        <a href="#chat">Support Chat</a>
       </nav>
-      <a class="btn btn-small" href="#estimate">Book Visit</a>
+      <a class="btn btn-small" href="owner.html">Owner Portal</a>
     </header>
 
     <main id="home">
@@ -383,135 +383,13 @@
         </div>
       </section>
 
-      <section id="ops" class="section ops-system">
-        <div class="section-head reveal">
-          <p class="eyebrow">Operations control</p>
-          <h2>Track customer progress, receive notifications, and schedule your team.</h2>
-        </div>
-
-        <div class="ops-grid">
-          <article class="ops-panel reveal">
-            <h3>Dispatch notifications</h3>
-            <ul id="notification-list" class="notification-list">
-              <li><strong>New lead:</strong> Aster Print House requested next-day cleaning.</li>
-              <li><strong>Payment posted:</strong> Mercer Dental invoice settled.</li>
-              <li><strong>Route change:</strong> Westfield Lofts moved from 10:40 to 11:10.</li>
-            </ul>
-          </article>
-
-          <article class="ops-panel reveal">
-            <h3>Customer workflow</h3>
-            <div class="workflow-grid" id="workflow-grid">
-              <div>
-                <p class="mini-label">Requested</p>
-                <ul>
-                  <li>Aster Print House</li>
-                  <li>Northline Optics</li>
-                </ul>
-              </div>
-              <div>
-                <p class="mini-label">Scheduled</p>
-                <ul>
-                  <li>Fulton Bakehouse</li>
-                  <li>Mercer Dental</li>
-                </ul>
-              </div>
-              <div>
-                <p class="mini-label">In progress</p>
-                <ul>
-                  <li>Westfield Lofts</li>
-                </ul>
-              </div>
-              <div>
-                <p class="mini-label">Completed</p>
-                <ul id="completed-jobs">
-                  <li>Rivermill Studios</li>
-                  <li>Alden Hair Lab</li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          <article class="ops-panel schedule-panel reveal" id="schedule">
-            <h3>Team scheduling window</h3>
-            <p class="ops-copy">Assign shift windows and priority so high-value jobs stay first.</p>
-
-            <form id="schedule-form" novalidate>
-              <div class="inline-controls">
-                <label>
-                  Team member
-                  <select id="team-member" name="teamMember">
-                    <option value="Luca A.">Luca A.</option>
-                    <option value="Mina R.">Mina R.</option>
-                    <option value="Devon K.">Devon K.</option>
-                  </select>
-                </label>
-
-                <label>
-                  Priority
-                  <select id="priority" name="priority">
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
-                </label>
-              </div>
-
-              <label>
-                Shift date
-                <input id="shift-date" name="shiftDate" type="date" required />
-                <span class="error" id="shift-date-error"></span>
-              </label>
-
-              <div class="inline-controls">
-                <label>
-                  Start
-                  <input id="shift-start" name="shiftStart" type="time" required />
-                  <span class="error" id="shift-start-error"></span>
-                </label>
-
-                <label>
-                  End
-                  <input id="shift-end" name="shiftEnd" type="time" required />
-                  <span class="error" id="shift-end-error"></span>
-                </label>
-              </div>
-
-              <label>
-                Focus task
-                <input id="shift-task" name="shiftTask" type="text" placeholder="Downtown storefront run" required />
-                <span class="error" id="shift-task-error"></span>
-              </label>
-
-              <button class="btn" type="submit">Add shift</button>
-              <p class="form-message" id="schedule-message" aria-live="polite"></p>
-            </form>
-
-            <ul class="shift-list" id="shift-list">
-              <li>
-                <div>
-                  <strong>Luca A.</strong>
-                  <p>Tue 07:30 - 12:30 | Downtown storefront route</p>
-                </div>
-                <span class="tag high">High</span>
-              </li>
-              <li>
-                <div>
-                  <strong>Mina R.</strong>
-                  <p>Tue 12:45 - 17:00 | Interior apartment block pass</p>
-                </div>
-                <span class="tag medium">Medium</span>
-              </li>
-            </ul>
-          </article>
-        </div>
-      </section>
     </main>
 
     <footer class="footer">
       <p>Northglass Window Care</p>
       <a href="tel:+13128471928">+1 (312) 847-1928</a>
       <a href="mailto:bookings@northglasscare.com">bookings@northglasscare.com</a>
+      <a href="owner.html">Owner portal</a>
     </footer>
 
     <script src="script.js"></script>

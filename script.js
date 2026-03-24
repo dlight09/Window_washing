@@ -75,6 +75,21 @@ function setupEstimateForm() {
   const submitBtn = document.getElementById('submit-btn');
   const formMessage = document.getElementById('form-message');
 
+  if (
+    !floorsInput ||
+    !windowsInput ||
+    !dateInput ||
+    !priceChip ||
+    !slotState ||
+    !slotList ||
+    !slotHidden ||
+    !form ||
+    !submitBtn ||
+    !formMessage
+  ) {
+    return;
+  }
+
   function updatePricePreview() {
     const floorValue = Number(floorsInput.value);
     const windowValue = Number(windowsInput.value);
@@ -226,6 +241,11 @@ function setupPaymentSystem() {
   const paymentForm = document.getElementById('payment-form');
   const payBtn = document.getElementById('pay-btn');
   const paymentMessage = document.getElementById('payment-message');
+
+  if (!invoiceItems.length || !amount || !context || !paymentForm || !payBtn || !paymentMessage) {
+    return;
+  }
+
   let selectedInvoice = invoiceItems[0];
 
   function updateSelectedInvoice(item) {
@@ -298,9 +318,11 @@ function setupPaymentSystem() {
       addNotification(`<strong>Payment posted:</strong> ${selectedInvoice.dataset.client} paid $${selectedInvoice.dataset.amount}.`);
       selectedInvoice.remove();
       const completedList = document.getElementById('completed-jobs');
-      const completeItem = document.createElement('li');
-      completeItem.textContent = selectedInvoice.dataset.client;
-      completedList.prepend(completeItem);
+      if (completedList) {
+        const completeItem = document.createElement('li');
+        completeItem.textContent = selectedInvoice.dataset.client;
+        completedList.prepend(completeItem);
+      }
 
       const remaining = document.querySelector('.invoice-item');
       if (remaining) {
@@ -319,6 +341,10 @@ function setupChatSystem() {
   const chatQuick = document.getElementById('chat-quick');
   const chatForm = document.getElementById('chat-form');
   const chatInput = document.getElementById('chat-input');
+
+  if (!chatLog || !chatQuick || !chatForm || !chatInput) {
+    return;
+  }
 
   const suggestions = [
     'What areas do you serve?',
@@ -393,6 +419,10 @@ function setupScheduleSystem() {
   const scheduleForm = document.getElementById('schedule-form');
   const scheduleMessage = document.getElementById('schedule-message');
   const shiftList = document.getElementById('shift-list');
+
+  if (!scheduleForm || !scheduleMessage || !shiftList) {
+    return;
+  }
 
   function validateShift() {
     let valid = true;

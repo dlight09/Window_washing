@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Northglass Owner Portal</title>
+    <meta
+      name="description"
+      content="Northglass owner operations portal for dispatch updates, customer progress tracking, payment visibility, and shift scheduling."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-noise" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#portal">Northglass Owner</a>
+      <nav class="nav-links" aria-label="Owner navigation">
+        <a href="#ops">Notifications</a>
+        <a href="#workflow">Progress</a>
+        <a href="#schedule">Scheduling</a>
+      </nav>
+      <a class="btn btn-small" href="index.html">Client website</a>
+    </header>
+
+    <main id="portal">
+      <section class="hero section">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Owner command center</p>
+          <h1>Run dispatch, customer progress, and team shifts from one dashboard.</h1>
+          <p class="lead">
+            Use this internal view to monitor requests, track payments in queue, and assign
+            high-priority jobs before route dispatch.
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="#schedule">Plan today's shifts</a>
+            <a class="btn btn-ghost" href="index.html">Open client-facing site</a>
+          </div>
+          <ul class="meta-list" aria-label="Ops metrics">
+            <li><strong>27</strong> active customer jobs this week</li>
+            <li><strong>6</strong> crew members currently scheduled</li>
+          </ul>
+        </div>
+
+        <div class="hero-panel reveal">
+          <figure class="hero-photo">
+            <img
+              src="https://images.pexels.com/photos/4246120/pexels-photo-4246120.jpeg?auto=compress&cs=tinysrgb&w=1400"
+              alt="Operations lead reviewing service schedule on a laptop"
+              loading="eager"
+            />
+          </figure>
+          <div class="glass-card">
+            <p class="mini-label">Dispatch pulse</p>
+            <ul class="route-list">
+              <li><span>Requested</span><time>9</time></li>
+              <li><span>Scheduled</span><time>11</time></li>
+              <li><span>In progress</span><time>4</time></li>
+            </ul>
+            <div class="status-strip">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              Next team check-in in <strong>18 minutes</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section services" id="workflow">
+        <div class="section-head reveal">
+          <p class="eyebrow">Financial and route focus</p>
+          <h2>Keep payment queues and field priorities visible at a glance.</h2>
+        </div>
+        <div class="service-grid">
+          <article class="service-tile large reveal">
+            <h3>Payment queue snapshot</h3>
+            <ul>
+              <li>Mercer Dental - $184 - due today</li>
+              <li>Westfield Lofts - $312 - due in 2 days</li>
+              <li>Fulton Bakehouse - $268 - due in 3 days</li>
+            </ul>
+          </article>
+          <article class="service-tile reveal">
+            <h3>Priority route</h3>
+            <p>Downtown storefront strip starts at 08:10 with two high-priority jobs.</p>
+          </article>
+          <article class="service-tile accent reveal">
+            <h3>Callback requests</h3>
+            <p>3 customers are waiting for dispatch phone confirmation.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="ops" class="section ops-system">
+        <div class="section-head reveal">
+          <p class="eyebrow">Operations control</p>
+          <h2>Track customer progress, receive notifications, and schedule your team.</h2>
+        </div>
+
+        <div class="ops-grid">
+          <article class="ops-panel reveal">
+            <h3>Dispatch notifications</h3>
+            <ul id="notification-list" class="notification-list">
+              <li><strong>New lead:</strong> Aster Print House requested next-day cleaning.</li>
+              <li><strong>Payment posted:</strong> Mercer Dental invoice settled.</li>
+              <li><strong>Route change:</strong> Westfield Lofts moved from 10:40 to 11:10.</li>
+            </ul>
+          </article>
+
+          <article class="ops-panel reveal">
+            <h3>Customer workflow</h3>
+            <div class="workflow-grid" id="workflow-grid">
+              <div>
+                <p class="mini-label">Requested</p>
+                <ul>
+                  <li>Aster Print House</li>
+                  <li>Northline Optics</li>
+                </ul>
+              </div>
+              <div>
+                <p class="mini-label">Scheduled</p>
+                <ul>
+                  <li>Fulton Bakehouse</li>
+                  <li>Mercer Dental</li>
+                </ul>
+              </div>
+              <div>
+                <p class="mini-label">In progress</p>
+                <ul>
+                  <li>Westfield Lofts</li>
+                </ul>
+              </div>
+              <div>
+                <p class="mini-label">Completed</p>
+                <ul id="completed-jobs">
+                  <li>Rivermill Studios</li>
+                  <li>Alden Hair Lab</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="ops-panel schedule-panel reveal" id="schedule">
+            <h3>Team scheduling window</h3>
+            <p class="ops-copy">Assign shift windows and priority so high-value jobs stay first.</p>
+
+            <form id="schedule-form" novalidate>
+              <div class="inline-controls">
+                <label>
+                  Team member
+                  <select id="team-member" name="teamMember">
+                    <option value="Luca A.">Luca A.</option>
+                    <option value="Mina R.">Mina R.</option>
+                    <option value="Devon K.">Devon K.</option>
+                  </select>
+                </label>
+
+                <label>
+                  Priority
+                  <select id="priority" name="priority">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                Shift date
+                <input id="shift-date" name="shiftDate" type="date" required />
+                <span class="error" id="shift-date-error"></span>
+              </label>
+
+              <div class="inline-controls">
+                <label>
+                  Start
+                  <input id="shift-start" name="shiftStart" type="time" required />
+                  <span class="error" id="shift-start-error"></span>
+                </label>
+
+                <label>
+                  End
+                  <input id="shift-end" name="shiftEnd" type="time" required />
+                  <span class="error" id="shift-end-error"></span>
+                </label>
+              </div>
+
+              <label>
+                Focus task
+                <input id="shift-task" name="shiftTask" type="text" placeholder="Downtown storefront run" required />
+                <span class="error" id="shift-task-error"></span>
+              </label>
+
+              <button class="btn" type="submit">Add shift</button>
+              <p class="form-message" id="schedule-message" aria-live="polite"></p>
+            </form>
+
+            <ul class="shift-list" id="shift-list">
+              <li>
+                <div>
+                  <strong>Luca A.</strong>
+                  <p>Tue 07:30 - 12:30 | Downtown storefront route</p>
+                </div>
+                <span class="tag high">High</span>
+              </li>
+              <li>
+                <div>
+                  <strong>Mina R.</strong>
+                  <p>Tue 12:45 - 17:00 | Interior apartment block pass</p>
+                </div>
+                <span class="tag medium">Medium</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Northglass Owner Portal</p>
+      <a href="index.html">Client website</a>
+      <a href="mailto:dispatch@northglasscare.com">dispatch@northglasscare.com</a>
+      <a href="tel:+13128471928">+1 (312) 847-1928</a>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
