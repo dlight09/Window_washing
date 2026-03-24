@@ -397,6 +397,7 @@ function setupChatSystem() {
     chatWidget.setAttribute('aria-hidden', String(!isOpen));
     if (isOpen) {
       chatNudge.classList.remove('is-visible');
+      floatingChat.classList.remove('is-raised');
       chatInput.focus();
       hasOpened = true;
     }
@@ -426,9 +427,11 @@ function setupChatSystem() {
 
   setTimeout(() => {
     if (!hasOpened) {
+      floatingChat.classList.add('is-raised');
       chatNudge.classList.add('is-visible');
       setTimeout(() => {
         chatNudge.classList.remove('is-visible');
+        floatingChat.classList.remove('is-raised');
       }, 5200);
     }
   }, 2200);
