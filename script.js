@@ -4,6 +4,7 @@ const observer = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
       }
     });
   },
@@ -268,12 +269,39 @@ function setupPaymentSystem() {
   const paymentForm = document.getElementById('payment-form');
   const payBtn = document.getElementById('pay-btn');
   const paymentMessage = document.getElementById('payment-message');
+  const cardNumberInput = document.getElementById('card-number');
+  const cardExpiryInput = document.getElementById('card-expiry');
+  const cardCvcInput = document.getElementById('card-cvc');
 
   if (!invoiceItems.length || !amount || !context || !paymentForm || !payBtn || !paymentMessage) {
     return;
   }
 
   let selectedInvoice = invoiceItems[0];
+
+  if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', () => {
+      const digits = cardNumberInput.value.replace(/\D/g, '').slice(0, 16);
+      cardNumberInput.value = digits.replace(/(.{4})/g, '$1 ').trim();
+    });
+  }
+
+  if (cardExpiryInput) {
+    cardExpiryInput.addEventListener('input', () => {
+      const digits = cardExpiryInput.value.replace(/\D/g, '').slice(0, 4);
+      if (digits.length <= 2) {
+        cardExpiryInput.value = digits;
+        return;
+      }
+      cardExpiryInput.value = `${digits.slice(0, 2)}/${digits.slice(2)}`;
+    });
+  }
+
+  if (cardCvcInput) {
+    cardCvcInput.addEventListener('input', () => {
+      cardCvcInput.value = cardCvcInput.value.replace(/\D/g, '').slice(0, 4);
+    });
+  }
 
   function updateSelectedInvoice(item) {
     invoiceItems.forEach((invoice) => invoice.classList.remove('active'));
@@ -421,6 +449,15 @@ function setupChatSystem() {
 
   window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
+      setOpenState(false);
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!floatingChat.classList.contains('is-open')) {
+      return;
+    }
+    if (!floatingChat.contains(event.target)) {
       setOpenState(false);
     }
   });

@@ -31,6 +31,14 @@ body {
   line-height: 1.5;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #6bb6a9;
+  outline-offset: 2px;
+}
+
 .site-noise {
   position: fixed;
   inset: 0;
@@ -716,7 +724,7 @@ small {
 .floating-chat {
   position: fixed;
   right: 1.2rem;
-  bottom: 1.2rem;
+  bottom: calc(1.2rem + env(safe-area-inset-bottom));
   z-index: 90;
   display: grid;
   justify-items: end;
@@ -760,6 +768,9 @@ small {
 }
 
 .chat-nudge {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.7rem);
   margin: 0;
   padding: 0.5rem 0.75rem;
   border-radius: 0.8rem;
@@ -784,10 +795,13 @@ small {
   right: 0;
   bottom: calc(100% + 0.7rem);
   width: min(380px, calc(100vw - 1.6rem));
+  max-height: calc(100dvh - 7rem);
   background: #fff;
   border: 1px solid #d5deeb;
   border-radius: 1.2rem;
   box-shadow: 0 34px 46px -28px rgba(13, 27, 43, 0.7);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
   overflow: hidden;
   opacity: 0;
   transform: translateY(14px) scale(0.985);
@@ -865,7 +879,7 @@ small {
   display: grid;
   gap: 0.65rem;
   align-content: start;
-  max-height: 360px;
+  min-height: 0;
 }
 
 .bubble {
@@ -920,11 +934,6 @@ small {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 0.55rem;
-}
-
-.chat-widget .chat-log {
-  max-height: 280px;
-  min-height: 220px;
 }
 
 .chat-notes ul {
@@ -1199,16 +1208,28 @@ small {
 
   .floating-chat {
     right: 0.75rem;
-    bottom: 0.75rem;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
     left: auto;
     justify-items: end;
   }
 
   .floating-chat.is-raised {
-    bottom: 1.35rem;
+    bottom: calc(1.35rem + env(safe-area-inset-bottom));
   }
 
   .chat-widget {
     width: min(360px, calc(100vw - 1.6rem));
+    max-height: calc(100dvh - 5.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
